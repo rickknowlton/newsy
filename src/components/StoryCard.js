@@ -12,6 +12,7 @@ import {
   Snackbar,
   Tooltip,
   Typography,
+  CardActions,
 } from "@mui/material";
 import MuiAlert from "@mui/material/Alert";
 import {
@@ -100,7 +101,6 @@ const StoryCard = ({
                 <Tooltip title="Share">
                   <IconButton
                     sx={{
-                      paddingTop: "20px",
                       color: darkMode
                         ? "rgba(255, 255, 255, 0.9)"
                         : "rgba(0, 0, 0, 0.9)",
@@ -113,36 +113,26 @@ const StoryCard = ({
                 <Tooltip title={isSaved ? "Unsave" : "Save"}>
                   <IconButton
                     sx={{
-                      paddingTop: "20px",
                       color: darkMode
                         ? "rgba(255, 255, 255, 0.9)"
                         : "rgba(0, 0, 0, 0.9)",
                     }}
-                    onClick={(e) => {
-                      e.preventDefault();
-                      handleSaveArticle();
-                    }}
+                    onClick={handleSaveArticle}
                   >
-                    {isSaved ? (
-                      <Bookmark
-                        style={{ color: darkMode ? "white" : "black" }}
-                      />
-                    ) : (
-                      <BookmarkBorder
-                        style={{ color: darkMode ? "white" : "black" }}
-                      />
-                    )}
+                    {isSaved ? <Bookmark /> : <BookmarkBorder />}
                   </IconButton>
                 </Tooltip>
               </>
             }
           />
+
+          <CardMedia
+            component="img"
+            height={mediaHeight}
+            image={urlToImage}
+            alt={title}
+          />
         </Box>
-        <CardMedia
-          image={urlToImage || "/images/newsy-sq.png"}
-          title={title}
-          style={{ height: mediaHeight }}
-        />
         <CardContent
           sx={{
             height: cardContentHeight,
@@ -166,13 +156,13 @@ const StoryCard = ({
                 : description}
             </Typography>
           )}
+        </CardContent>
+        <CardActions sx={{ backgroundColor: darkMode ? "#191919" : "#ffffff" }}>
           <Box
             sx={{
-              position: "absolute",
-              bottom: "10px",
-              right: "20px",
               display: "flex",
-              alignItems: "center",
+              justifyContent: "flex-end",
+              width: "100%",
             }}
           >
             <Link
@@ -198,22 +188,17 @@ const StoryCard = ({
               <OpenInNew />
             </Link>
           </Box>
-        </CardContent>
-        <Snackbar
-          open={snackbarOpen}
-          autoHideDuration={3000}
-          onClose={handleCloseSnackbar}
-          style={{ marginBottom: "40px" }}
-        >
-          <Alert
-            onClose={handleCloseSnackbar}
-            severity="success"
-            sx={{ width: "100%" }}
-          >
-            {snackbarMessage}
-          </Alert>
-        </Snackbar>
+        </CardActions>
       </CardActionArea>
+      <Snackbar
+        open={snackbarOpen}
+        autoHideDuration={2000}
+        onClose={handleCloseSnackbar}
+      >
+        <Alert onClose={handleCloseSnackbar} severity="info">
+          {snackbarMessage}
+        </Alert>
+      </Snackbar>
     </Card>
   );
 };

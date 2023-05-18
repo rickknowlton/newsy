@@ -171,6 +171,7 @@ const SearchResults = () => {
                   article={article}
                   darkMode={darkMode}
                   showDescription={true}
+                  showMedia={!isMobile}
                   savedArticles={savedArticles}
                   saveArticle={saveArticle}
                   unsaveArticle={unsaveArticle}
