@@ -3,7 +3,6 @@ import { useState, useEffect } from "react";
 const useSavedArticles = () => {
   const [savedArticles, setSavedArticles] = useState([]);
 
-  // Load saved articles from local storage on mount
   useEffect(() => {
     if (typeof window !== "undefined") {
       const savedArticlesInLocalStorage = localStorage.getItem("savedArticles");
@@ -13,7 +12,6 @@ const useSavedArticles = () => {
     }
   }, []);
 
-  // Update local storage whenever saved articles change
   useEffect(() => {
     if (typeof window !== "undefined") {
       localStorage.setItem("savedArticles", JSON.stringify(savedArticles));
