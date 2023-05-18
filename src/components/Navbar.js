@@ -5,9 +5,10 @@ import {
   AppBar,
   Button,
   ButtonGroup,
-  CircularProgress,
   Grid,
   IconButton,
+  MenuItem,
+  Select,
   Toolbar,
   Typography,
   useMediaQuery,
@@ -23,6 +24,7 @@ import {
 import useNewsSearchAPI from "../hooks/useNewsSearchAPI";
 import { SearchBar } from "../styles/Custom.styles";
 import Loader from "./Loader";
+import MobileMenu from "./MobileMenu";
 
 const Navbar = ({
   darkMode,
@@ -83,55 +85,64 @@ const Navbar = ({
                 alignItems: "center",
               }}
             >
-              <IconButton color="inherit" onClick={handleHomeClick}>
-                <Home />
-              </IconButton>
-              <IconButton color="inherit" onClick={() => router.push("/saved")}>
-                <Bookmark />
-              </IconButton>
-              <IconButton color="inherit" onClick={handleSearchIconClick}>
-                <Search />
-              </IconButton>
-              {!isMobile && showSearch && (
+              {isMobile ? (
+                <MobileMenu />
+              ) : (
                 <>
-                  <SearchBar
-                    id="outlined-search"
-                    label="Search"
-                    value={searchInput}
-                    onChange={(e) => setSearchInput(e.target.value)}
-                    onKeyDown={handleSearch}
-                    inputProps={{
-                      style: {
-                        color: darkMode ? "#000000" : "#ffffff",
-                      },
-                    }}
-                    darkMode={darkMode}
-                  />
-                  <Button
-                    size="medium"
-                    variant="outlined"
-                    onClick={handleSearch}
-                    disabled={!searchInput}
-                    sx={{
-                      color: darkMode ? "#212121" : "#f5f5f5",
-                      border: "2px solid",
-                      borderColor: darkMode ? "#212121" : "#f5f5f5",
-                      height: "56px",
-                      width: "56px",
-                      minWidth: "56px",
-                      ":hover": {
-                        borderColor: darkMode ? "#212121" : "#f5f5f5",
-                        backgroundColor: darkMode ? "#212121" : "#f5f5f5",
-                        color: darkMode ? "#f5f5f5" : "#212121",
-                      },
-                      ":disabled": {
-                        borderColor: darkMode ? "#424242" : "#f5f5f5",
-                        color: darkMode ? "#424242" : "#f5f5f5",
-                      },
-                    }}
+                  <IconButton color="inherit" onClick={handleHomeClick}>
+                    <Home />
+                  </IconButton>
+                  <IconButton
+                    color="inherit"
+                    onClick={() => router.push("/saved")}
                   >
-                    GO
-                  </Button>
+                    <Bookmark />
+                  </IconButton>
+                  <IconButton color="inherit" onClick={handleSearchIconClick}>
+                    <Search />
+                  </IconButton>
+                  {!isMobile && showSearch && (
+                    <>
+                      <SearchBar
+                        id="outlined-search"
+                        label="Search"
+                        value={searchInput}
+                        onChange={(e) => setSearchInput(e.target.value)}
+                        onKeyDown={handleSearch}
+                        inputProps={{
+                          style: {
+                            color: darkMode ? "#000000" : "#ffffff",
+                          },
+                        }}
+                        darkMode={darkMode}
+                      />
+                      <Button
+                        size="medium"
+                        variant="outlined"
+                        onClick={handleSearch}
+                        disabled={!searchInput}
+                        sx={{
+                          color: darkMode ? "#212121" : "#f5f5f5",
+                          border: "2px solid",
+                          borderColor: darkMode ? "#212121" : "#f5f5f5",
+                          height: "56px",
+                          width: "56px",
+                          minWidth: "56px",
+                          ":hover": {
+                            borderColor: darkMode ? "#212121" : "#f5f5f5",
+                            backgroundColor: darkMode ? "#212121" : "#f5f5f5",
+                            color: darkMode ? "#f5f5f5" : "#212121",
+                          },
+                          ":disabled": {
+                            borderColor: darkMode ? "#424242" : "#f5f5f5",
+                            color: darkMode ? "#424242" : "#f5f5f5",
+                          },
+                        }}
+                      >
+                        GO
+                      </Button>
+                    </>
+                  )}
                 </>
               )}
             </Grid>
@@ -146,7 +157,11 @@ const Navbar = ({
                 alignItems: "center",
               }}
             >
-              <Typography variant="h2" onClick={handleHomeClick}>
+              <Typography
+                variant="h4"
+                onClick={handleHomeClick}
+                sx={{ fontSize: isMobile ? "h4.fontSize" : "h2.fontSize" }}
+              >
                 Newsy
               </Typography>
             </Grid>
@@ -168,38 +183,69 @@ const Navbar = ({
               >
                 {darkMode ? <LightMode /> : <NightsStay />}
               </IconButton>
-              {showCountryToggle && (
-                <ButtonGroup variant="outlined">
-                  <Button
-                    color="inherit"
-                    onClick={() => handleCountryClick("us")}
+              {showCountryToggle &&
+                (isMobile ? (
+                  <Select
+                    value={country}
+                    onChange={(e) => handleCountryClick(e.target.value)}
                     sx={{
-                      backgroundColor:
-                        country === "us"
-                          ? darkMode
-                            ? "action.selected"
-                            : "#424242"
-                          : "transparent",
+                      margin: "5px 0",
+                      color: "inherit",
+                      border: "1px solid #ced4da",
+                      "&:focus": {
+                        borderColor: "#80bdff",
+                        boxShadow: "0 0 0 0.2rem rgba(0,123,255,.25)",
+                      },
+                      color: darkMode ? "#000000" : "#ffffff",
+                      ".MuiOutlinedInput-notchedOutline": {
+                        borderColor: "rgba(228, 219, 233, 0.25)",
+                      },
+                      "&.Mui-focused .MuiOutlinedInput-notchedOutline": {
+                        borderColor: "rgba(228, 219, 233, 0.25)",
+                      },
+                      "&:hover .MuiOutlinedInput-notchedOutline": {
+                        borderColor: "rgba(228, 219, 233, 0.25)",
+                      },
+                      ".MuiSvgIcon-root ": {
+                        fill: darkMode ? "#000000" : "#ffffff",
+                      },
                     }}
                   >
-                    US
-                  </Button>
-                  <Button
-                    color="inherit"
-                    onClick={() => handleCountryClick("gb")}
-                    sx={{
-                      backgroundColor:
-                        country === "gb"
-                          ? darkMode
-                            ? "action.selected"
-                            : "#424242"
-                          : "transparent",
-                    }}
-                  >
-                    UK
-                  </Button>
-                </ButtonGroup>
-              )}
+                    <MenuItem value={"us"}>US</MenuItem>
+                    <MenuItem value={"gb"}>UK</MenuItem>
+                  </Select>
+                ) : (
+                  <ButtonGroup variant="outlined">
+                    <Button
+                      color="inherit"
+                      onClick={() => handleCountryClick("us")}
+                      sx={{
+                        backgroundColor:
+                          country === "us"
+                            ? darkMode
+                              ? "action.selected"
+                              : "#424242"
+                            : "transparent",
+                      }}
+                    >
+                      US
+                    </Button>
+                    <Button
+                      color="inherit"
+                      onClick={() => handleCountryClick("gb")}
+                      sx={{
+                        backgroundColor:
+                          country === "gb"
+                            ? darkMode
+                              ? "action.selected"
+                              : "#424242"
+                            : "transparent",
+                      }}
+                    >
+                      UK
+                    </Button>
+                  </ButtonGroup>
+                ))}
             </Grid>
           </Grid>
         </Toolbar>

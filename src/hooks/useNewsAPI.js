@@ -1,5 +1,4 @@
 import { useState, useEffect } from "react";
-import axios from "axios";
 import fetch from "node-fetch";
 
 const useNewsAPI = (initialCountry) => {

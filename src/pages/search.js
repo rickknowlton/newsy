@@ -12,6 +12,8 @@ import {
   InputAdornment,
   ThemeProvider,
   Typography,
+  useMediaQuery,
+  useTheme,
 } from "@mui/material";
 import SearchIcon from "@mui/icons-material/Search";
 import useNewsSearchAPI from "../hooks/useNewsSearchAPI";
@@ -38,6 +40,8 @@ const SearchResults = () => {
     setPage,
   } = useNewsSearchAPI(query);
   const [searchInput, setSearchInput] = useState("");
+  const theme = useTheme();
+  const isMobile = useMediaQuery(theme.breakpoints.down("sm"));
 
   const handleSearchChange = (event) => {
     setSearchInput(event.target.value);
@@ -92,7 +96,7 @@ const SearchResults = () => {
         >
           <Box
             my={2}
-            px={8}
+            px={isMobile ? 3 : 8}
             py={5}
             sx={{
               borderColor: darkMode ? "darkgrey" : "black",
@@ -147,7 +151,7 @@ const SearchResults = () => {
           </Box>
           <Box
             my={2}
-            px={8}
+            px={isMobile ? 3 : 8}
             py={5}
             sx={{
               borderColor: darkMode ? "darkgrey" : "black",

@@ -49,7 +49,7 @@ const SavedArticles = () => {
         >
           <Box
             my={2}
-            px={8}
+            px={isMobile ? 3 : 8}
             py={5}
             sx={{
               borderColor: darkMode ? "darkgrey" : "black",
