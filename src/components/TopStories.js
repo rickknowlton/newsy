@@ -13,7 +13,7 @@ const TopStories = ({
   unsaveArticle,
   isArticleSaved,
 }) => {
-  const isMobile = useMediaQuery((theme) => theme.breakpoints.down('sm'));
+  const isMobile = useMediaQuery((theme) => theme.breakpoints.down("sm"));
 
   if (!articles.length) return null;
 
@@ -61,8 +61,8 @@ const TopStories = ({
         article={article}
         darkMode={darkMode}
         showDescription={true}
-        mediaHeight="500px"
-        cardContentHeight={isMobile ? "260px" : "130px"}
+        mediaHeight={isMobile ? "300px" : "500px"}
+        cardContentHeight={isMobile ? "240px" : "180px"}
         saveArticle={saveArticle}
         unsaveArticle={unsaveArticle}
         isArticleSaved={isArticleSaved}

@@ -30,7 +30,7 @@ const Sidebar = ({
     <Box
       ref={containerRef}
       sx={{
-        height: "725px",
+        height: "773px",
         boxSizing: "border-box",
         overflow: "auto",
         backgroundColor: darkMode ? "#424242" : "#ffffff",
