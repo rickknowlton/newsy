@@ -1,5 +1,4 @@
 import { useState, useEffect } from "react";
-import axios from "axios";
 
 const useNewsAPI = (initialCountry) => {
   const [articles, setArticles] = useState([]);
@@ -20,14 +19,17 @@ const useNewsAPI = (initialCountry) => {
     const fetchNews = async () => {
       setIsLoading(true);
       try {
-        const response = await axios.get(
-          `/api/news`,
-          {
-            params: { country, page, query: searchQuery },
-          }
+        const response = await fetch(
+          `/api/news?country=${country}&page=${page}&query=${encodeURIComponent(
+            searchQuery
+          )}`
         );
 
-        const data = response.data;
+        if (!response.ok) {
+          throw new Error("Failed to fetch news articles. Please try again later.");
+        }
+
+        const data = await response.json();
 
         setArticles((prevArticles) => [...prevArticles, ...data.articles]);
         setHasMore(data.articles.length > 0);
@@ -35,7 +37,7 @@ const useNewsAPI = (initialCountry) => {
         setSearchQuery("");
       } catch (error) {
         setIsLoading(false);
-        setError("Failed to fetch news articles. Please try again later.");
+        setError(error.message);
       }
     };
 
