@@ -59,7 +59,7 @@ const MoreHeadlines = ({
               darkMode={darkMode}
               showDescription={false}
               mediaHeight="280px"
-              cardContentHeight={isMobile ? "180px" : "220px"}
+              cardContentHeight={isMobile ? "220px" : "240px"}
               saveArticle={saveArticle}
               unsaveArticle={unsaveArticle}
               isArticleSaved={isArticleSaved}
@@ -80,11 +80,12 @@ const MoreHeadlines = ({
       <Snackbar
         open={open}
         autoHideDuration={6000}
+        onClose={handleClose}
         anchorOrigin={{
           vertical: "bottom",
           horizontal: "center",
         }}
-        onClose={handleClose}
+        style={{ marginBottom: "40px" }}
       >
         <MuiAlert
           onClose={handleClose}

@@ -203,6 +203,7 @@ const StoryCard = ({
           open={snackbarOpen}
           autoHideDuration={3000}
           onClose={handleCloseSnackbar}
+          style={{ marginBottom: "40px" }}
         >
           <Alert
             onClose={handleCloseSnackbar}
