@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import axios from "axios";
+import fetch from "node-fetch";
 
 const useNewsSearchAPI = (initialQuery = "") => {
   const [articles, setArticles] = useState([]);
@@ -18,22 +18,15 @@ const useNewsSearchAPI = (initialQuery = "") => {
     const fetchNews = async () => {
       setIsLoading(true);
       try {
-        const params = {
-          apiKey: process.env.NEXT_PUBLIC_API_KEY,
-          pageSize: 12,
-          page,
-          q: searchQuery,
-        };
+        const response = await fetch(
+          `/api/news-search?query=${encodeURIComponent(
+            searchQuery
+          )}&page=${page}`
+        );
+        const data = await response.json();
 
-        const response = await axios.get(`https://newsapi.org/v2/everything`, {
-          params,
-        });
-
-        setArticles((prevArticles) => [
-          ...prevArticles,
-          ...response.data.articles,
-        ]);
-        setHasMore(response.data.articles.length > 0);
+        setArticles((prevArticles) => [...prevArticles, ...data.articles]);
+        setHasMore(data.articles.length > 0);
         setIsLoading(false);
       } catch (error) {
         setIsLoading(false);
