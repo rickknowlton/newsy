@@ -1,5 +1,4 @@
 import { useState, useEffect } from "react";
-import fetch from "node-fetch";
 
 const useNewsSearchAPI = (initialQuery = "") => {
   const [articles, setArticles] = useState([]);
