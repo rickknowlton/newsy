@@ -136,6 +136,10 @@ const ArticleCard = ({
         open={snackbarOpen}
         autoHideDuration={3000}
         onClose={handleCloseSnackbar}
+        anchorOrigin={{
+          vertical: "bottom",
+          horizontal: "center",
+        }}
         style={{ marginBottom: "40px" }}
       >
         <Alert

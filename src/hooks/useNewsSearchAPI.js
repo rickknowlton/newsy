@@ -40,7 +40,7 @@ const useNewsSearchAPI = (initialQuery = "") => {
       }
     };
 
-    if (searchQuery !== "") {
+    if (searchQuery && searchQuery !== "") {
       fetchNews();
     }
   }, [searchQuery, page]);
