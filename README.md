@@ -49,7 +49,7 @@ Start the server
   npm run dev
 ```
 
-Open your browser and visit http://localhost:3000 to _read all about it!_ 🗞️
+Open your browser and visit http://localhost:3000 to _read all about it!_ 📰
 
 **_Note: The app will not work until you set up the environment variables._**
 
