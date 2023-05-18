@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react";
+import axios from "axios";
 
 const useNewsSearchAPI = (initialQuery = "") => {
   const [articles, setArticles] = useState([]);
