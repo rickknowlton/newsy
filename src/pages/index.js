@@ -133,11 +133,16 @@ const IndexPage = () => {
             <Typography variant="h3" component="h1" gutterBottom>
               Top Stories
             </Typography>
-            {isLoading && <CircularProgress />}
-            {error && (
-              <Typography variant="body1" color="error">
-                {error}
-              </Typography>
+            {searchQuery && searchQuery !== "" && isLoading && (
+              <Box
+                display="flex"
+                justifyContent="center"
+                alignItems="center"
+                height="100vh"
+              >
+                <CircularProgress />
+                <Typography>Loading...</Typography>
+              </Box>
             )}
             <Grid container spacing={2}>
               <Grid item xs={12} md={8}>

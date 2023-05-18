@@ -162,8 +162,17 @@ const SearchResults = () => {
             <Typography variant="h3" component="h1" gutterBottom>
               Search Results
             </Typography>
-            {isLoading && <CircularProgress />}
-            {isLoading && <div>Loading...</div>}
+            {searchQuery && searchQuery !== "" && isLoading && (
+              <Box
+                display="flex"
+                justifyContent="center"
+                alignItems="center"
+                height="100vh"
+              >
+                <CircularProgress />
+                <Typography>Loading...</Typography>
+              </Box>
+            )}
             {articles.length > 0 ? (
               articles.map((article, index) => (
                 <ArticleCard
