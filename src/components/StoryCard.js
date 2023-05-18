@@ -129,7 +129,7 @@ const StoryCard = ({
           <CardMedia
             component="img"
             height={mediaHeight}
-            image={urlToImage}
+            image={urlToImage || "/images/newsy-sq.webp"}
             alt={title}
           />
         </Box>

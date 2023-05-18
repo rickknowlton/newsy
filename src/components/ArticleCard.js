@@ -77,7 +77,7 @@ const ArticleCard = ({
     >
       {showMedia && (
         <Grid item xs={2}>
-          <Image src={urlToImage || "/images/newsy-sq.png"} alt={title} />
+          <Image src={urlToImage || "/images/newsy-sq.webp"} alt={title} />
         </Grid>
       )}
       <Grid item xs={showMedia ? 10 : 12} container direction="column">
