@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react";
+import axios from "axios";
 
 const useNewsSearchAPI = (initialQuery = "") => {
   const [articles, setArticles] = useState([]);
@@ -17,7 +18,7 @@ const useNewsSearchAPI = (initialQuery = "") => {
     const fetchNews = async () => {
       setIsLoading(true);
       try {
-        const response = await fetch(
+        const response = await axios.get(
           `/api/news-search?query=${encodeURIComponent(
             searchQuery
           )}&page=${page}`
