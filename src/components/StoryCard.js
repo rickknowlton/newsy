@@ -83,56 +83,57 @@ const StoryCard = ({
         border: "solid 2px",
       }}
     >
-      <CardActionArea href={url} target="_blank">
-        <Box position="relative">
-          <CardHeader
-            sx={{
-              backgroundColor: darkMode ? "#212121" : "#ffffff",
-              height: "40px",
-              "& .MuiCardHeader-action": {
-                alignSelf: "auto",
-                display: "flex",
-                justifyContent: "flex-end",
-                alignItems: "center",
-              },
-            }}
-            action={
-              <>
-                <Tooltip title="Share">
-                  <IconButton
-                    sx={{
-                      color: darkMode
-                        ? "rgba(255, 255, 255, 0.9)"
-                        : "rgba(0, 0, 0, 0.9)",
-                    }}
-                    onClick={handleShareArticle}
-                  >
-                    <Share />
-                  </IconButton>
-                </Tooltip>
-                <Tooltip title={isSaved ? "Unsave" : "Save"}>
-                  <IconButton
-                    sx={{
-                      color: darkMode
-                        ? "rgba(255, 255, 255, 0.9)"
-                        : "rgba(0, 0, 0, 0.9)",
-                    }}
-                    onClick={handleSaveArticle}
-                  >
-                    {isSaved ? <Bookmark /> : <BookmarkBorder />}
-                  </IconButton>
-                </Tooltip>
-              </>
-            }
-          />
+      <Box position="relative">
+        <CardHeader
+          sx={{
+            backgroundColor: darkMode ? "#212121" : "#ffffff",
+            height: "40px",
+            "& .MuiCardHeader-action": {
+              alignSelf: "auto",
+              display: "flex",
+              justifyContent: "flex-end",
+              alignItems: "center",
+            },
+          }}
+          action={
+            <>
+              <Tooltip title="Share">
+                <IconButton
+                  sx={{
+                    color: darkMode
+                      ? "rgba(255, 255, 255, 0.9)"
+                      : "rgba(0, 0, 0, 0.9)",
+                  }}
+                  onClick={handleShareArticle}
+                >
+                  <Share />
+                </IconButton>
+              </Tooltip>
+              <Tooltip title={isSaved ? "Unsave" : "Save"}>
+                <IconButton
+                  sx={{
+                    color: darkMode
+                      ? "rgba(255, 255, 255, 0.9)"
+                      : "rgba(0, 0, 0, 0.9)",
+                  }}
+                  onClick={handleSaveArticle}
+                >
+                  {isSaved ? <Bookmark /> : <BookmarkBorder />}
+                </IconButton>
+              </Tooltip>
+            </>
+          }
+        />
 
+        <CardActionArea href={url} target="_blank">
           <CardMedia
             component="img"
             height={mediaHeight}
             image={urlToImage || "/images/newsy-sq.webp"}
             alt={title}
           />
-        </Box>
+        </CardActionArea>
+
         <CardContent
           sx={{
             height: cardContentHeight,
@@ -189,7 +190,7 @@ const StoryCard = ({
             </Link>
           </Box>
         </CardActions>
-      </CardActionArea>
+      </Box>
       <Snackbar
         open={snackbarOpen}
         autoHideDuration={2000}
