@@ -1,6 +1,7 @@
 import * as React from "react";
 import { Box, IconButton, useMediaQuery } from "@mui/material";
 import { ArrowBack, ArrowForward } from "@mui/icons-material";
+import SwipeableViews from "react-swipeable-views";
 import StoryCard from "./StoryCard";
 
 const TopStories = ({
@@ -37,6 +38,10 @@ const TopStories = ({
     },
   };
 
+  const handleChangeIndex = (index) => {
+    setCurrentArticleIndex(index);
+  };
+
   return (
     <Box position="relative">
       <IconButton
@@ -57,16 +62,24 @@ const TopStories = ({
       >
         <ArrowForward fontSize="medium" />
       </IconButton>
-      <StoryCard
-        article={article}
-        darkMode={darkMode}
-        showDescription={true}
-        mediaHeight={isMobile ? "300px" : "500px"}
-        cardContentHeight={isMobile ? "240px" : "180px"}
-        saveArticle={saveArticle}
-        unsaveArticle={unsaveArticle}
-        isArticleSaved={isArticleSaved}
-      />
+      <SwipeableViews
+        index={currentArticleIndex}
+        onChangeIndex={handleChangeIndex}
+      >
+        {articles.map((article, index) => (
+          <StoryCard
+            key={index}
+            article={article}
+            darkMode={darkMode}
+            showDescription={true}
+            mediaHeight={isMobile ? "300px" : "500px"}
+            cardContentHeight={isMobile ? "240px" : "180px"}
+            saveArticle={saveArticle}
+            unsaveArticle={unsaveArticle}
+            isArticleSaved={isArticleSaved}
+          />
+        ))}
+      </SwipeableViews>
     </Box>
   );
 };
