@@ -21,6 +21,7 @@ import {
   OpenInNew,
   Share,
 } from "@mui/icons-material";
+import ActionButtons from "./ActionButtons.js";
 
 const Alert = React.forwardRef(function Alert(props, ref) {
   return <MuiAlert elevation={6} ref={ref} variant="filled" {...props} />;
@@ -96,32 +97,12 @@ const StoryCard = ({
             },
           }}
           action={
-            <>
-              <Tooltip title="Share">
-                <IconButton
-                  sx={{
-                    color: darkMode
-                      ? "rgba(255, 255, 255, 0.9)"
-                      : "rgba(0, 0, 0, 0.9)",
-                  }}
-                  onClick={handleShareArticle}
-                >
-                  <Share />
-                </IconButton>
-              </Tooltip>
-              <Tooltip title={isSaved ? "Unsave" : "Save"}>
-                <IconButton
-                  sx={{
-                    color: darkMode
-                      ? "rgba(255, 255, 255, 0.9)"
-                      : "rgba(0, 0, 0, 0.9)",
-                  }}
-                  onClick={handleSaveArticle}
-                >
-                  {isSaved ? <Bookmark /> : <BookmarkBorder />}
-                </IconButton>
-              </Tooltip>
-            </>
+            <ActionButtons
+              isSaved={isSaved}
+              handleSaveArticle={handleSaveArticle}
+              handleShareArticle={handleShareArticle}
+              darkMode={darkMode}
+            />
           }
         />
 

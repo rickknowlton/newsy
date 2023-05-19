@@ -14,6 +14,7 @@ import {
   Description,
   ReadMoreButton,
 } from "../styles/Custom.styles";
+import ActionButtons from "./ActionButtons.js";
 
 const Alert = React.forwardRef(function Alert(props, ref) {
   return <MuiAlert elevation={6} ref={ref} variant="filled" {...props} />;
@@ -82,20 +83,12 @@ const ArticleCard = ({
       )}
       <Grid item xs={showMedia ? 10 : 12} container direction="column">
         <Grid item container justifyContent="flex-end">
-          <Tooltip title="Share">
-            <IconButton onClick={handleShareArticle}>
-              <Share sx={{ color: darkMode ? "white" : "black" }} />
-            </IconButton>
-          </Tooltip>
-          <Tooltip title={isSaved ? "Unsave" : "Save"}>
-            <IconButton onClick={handleSaveArticle}>
-              {isSaved ? (
-                <Bookmark sx={{ color: darkMode ? "white" : "black" }} />
-              ) : (
-                <BookmarkBorder sx={{ color: darkMode ? "white" : "black" }} />
-              )}
-            </IconButton>
-          </Tooltip>
+          <ActionButtons
+            isSaved={isSaved}
+            handleSaveArticle={handleSaveArticle}
+            handleShareArticle={handleShareArticle}
+            darkMode={darkMode}
+          />
         </Grid>
         <Grid item>
           <Title
