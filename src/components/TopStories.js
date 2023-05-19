@@ -63,6 +63,7 @@ const TopStories = ({
         <ArrowForward fontSize="medium" />
       </IconButton>
       <SwipeableViews
+        animateTransitions={false}
         index={currentArticleIndex}
         onChangeIndex={handleChangeIndex}
       >
