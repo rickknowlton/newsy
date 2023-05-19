@@ -12,7 +12,6 @@ import {
 const ActionButtons = ({
   isSaved,
   handleSaveArticle,
-  handleShareArticle,
   handleCopyLink,
   handleFacebookShare,
   handleTwitterShare,

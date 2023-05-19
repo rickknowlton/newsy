@@ -13,12 +13,7 @@ import {
   Typography,
 } from "@mui/material";
 import MuiAlert from "@mui/material/Alert";
-import {
-  Bookmark,
-  BookmarkBorder,
-  OpenInNew,
-  Share,
-} from "@mui/icons-material";
+import { OpenInNew } from "@mui/icons-material";
 import ActionButtons from "./ActionButtons.js";
 
 const Alert = React.forwardRef(function Alert(props, ref) {
@@ -43,14 +38,6 @@ const StoryCard = ({
   useEffect(() => {
     setIsSaved(isArticleSaved(url));
   }, [url, isArticleSaved]);
-
-  useEffect(() => {
-    console.log(url, urlToImage, title, description);
-  }, [url, urlToImage, title, description]);
-
-  useEffect(() => {
-    console.log(url, urlToImage, title, description);
-  }, [url, urlToImage, title, description]);
 
   const handleSaveArticle = () => {
     if (isSaved) {

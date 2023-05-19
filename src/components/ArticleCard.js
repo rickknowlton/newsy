@@ -50,10 +50,30 @@ const ArticleCard = ({
     setSnackbarOpen(true);
   };
 
-  const handleShareArticle = (e) => {
-    e.preventDefault();
+  const handleCopyLink = () => {
     navigator.clipboard.writeText(url);
     setSnackbarMessage("Article link copied to clipboard!");
+    setSnackbarOpen(true);
+  };
+
+  const handleFacebookShare = () => {
+    window.open(
+      "https://www.facebook.com/sharer/sharer.php?u=" + encodeURIComponent(url),
+      "_blank"
+    );
+    setSnackbarMessage("Article shared to Facebook!");
+    setSnackbarOpen(true);
+  };
+
+  const handleTwitterShare = () => {
+    window.open(
+      "https://twitter.com/intent/tweet?url=" +
+        encodeURIComponent(url) +
+        "&text=" +
+        encodeURIComponent(title),
+      "_blank"
+    );
+    setSnackbarMessage("Article shared to Twitter!");
     setSnackbarOpen(true);
   };
 
@@ -86,7 +106,9 @@ const ArticleCard = ({
           <ActionButtons
             isSaved={isSaved}
             handleSaveArticle={handleSaveArticle}
-            handleShareArticle={handleShareArticle}
+            handleCopyLink={handleCopyLink}
+            handleFacebookShare={handleFacebookShare}
+            handleTwitterShare={handleTwitterShare}
             darkMode={darkMode}
           />
         </Grid>
