@@ -20,8 +20,8 @@ import Sidebar from "../components/Sidebar";
 import newsyTheme from "../themes/theme";
 
 const IndexPage = () => {
-  const [currentArticleIndex, setCurrentArticleIndex] = useState(0);
   const [darkMode, setDarkMode] = useState(false);
+  const [currentArticleIndex, setCurrentArticleIndex] = useState(0);
   const {
     articles,
     country,
@@ -36,13 +36,21 @@ const IndexPage = () => {
   } = useNewsAPI("us");
   const { savedArticles, saveArticle, unsaveArticle, isArticleSaved } =
     useSavedArticles();
-
   const mainArticles = articles.slice(0, 9);
   const moreTopStories = articles.slice(9);
-
+  const darkTheme = newsyTheme(darkMode);
   const loadMore = () => {
     setPage((prevPage) => prevPage + 1);
   };
+
+  useEffect(() => {
+    const saved = localStorage.getItem("darkMode");
+    setDarkMode(JSON.parse(saved) || false);
+  }, []);
+
+  useEffect(() => {
+    localStorage.setItem("darkMode", JSON.stringify(darkMode));
+  }, [darkMode]);
 
   useEffect(() => {
     if (!mainArticles || mainArticles.length === 0) return;
@@ -84,16 +92,15 @@ const IndexPage = () => {
     };
   }, [currentArticleIndex, mainArticles.length]);
 
-  const darkTheme = newsyTheme(darkMode);
-
   const handleCountryChange = (countryCode) => {
     setCountry(countryCode);
     setSearchQuery("");
   };
 
   const handleThemeChange = () => {
-    setDarkMode(!darkMode);
-  };
+    const currentMode = !darkMode;
+    setDarkMode(currentMode);
+};
 
   return (
     <ThemeProvider theme={darkTheme}>
@@ -125,7 +132,7 @@ const IndexPage = () => {
             px={0}
             py={5}
             sx={{
-              borderColor: darkMode ? "darkgrey" : "black",
+              borderColor: darkMode ? "#212121" : "#000000",
               borderRadius: "20px",
               border: "solid 0px",
             }}
@@ -179,7 +186,7 @@ const IndexPage = () => {
             mx={0}
             pt={0}
             sx={{
-              borderColor: darkMode ? "darkgrey" : "black",
+              borderColor: darkMode ? "#212121" : "#000000",
               borderRadius: "20px",
               border: "solid px",
             }}

@@ -1,7 +1,7 @@
 import axios from "axios";
 
 export default async function handler(req, res) {
-  const { query, page = 1 } = req.query;
+  const { query, page = 1, sortBy = 'publishedAt' } = req.query;
   const apiKey = process.env.NEXT_PUBLIC_API_KEY;
   const pageSize = 12;
 
@@ -19,6 +19,7 @@ export default async function handler(req, res) {
       pageSize,
       page,
       q: query,
+      sortBy,
     };
 
     const response = await axios.get(`https://newsapi.org/v2/everything`, {

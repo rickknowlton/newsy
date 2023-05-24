@@ -133,9 +133,19 @@ const StoryCard = ({
             backgroundColor: darkMode ? "#212121" : "#ffffff",
           }}
         >
-          <Typography gutterBottom variant="h6" component="h2">
-            {title}
-          </Typography>
+          <Link
+            href={url}
+            target="_blank"
+            rel="noreferrer"
+            sx={{
+              textDecoration: "none",
+              "&:hover": { color: darkMode ? "#87E52A" : "#882AE5" },
+            }}
+          >
+            <Typography gutterBottom variant="h6" component="h2">
+              {title}
+            </Typography>
+          </Link>
           {showDescription && (
             <Typography
               variant="body2"
@@ -160,7 +170,7 @@ const StoryCard = ({
           >
             <Link
               sx={{
-                color: darkMode ? "#f5f5f5" : "black",
+                color: darkMode ? "#f5f5f5" : "#000000",
                 textDecoration: "none",
                 display: "flex",
                 alignItems: "center",

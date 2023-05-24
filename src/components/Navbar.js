@@ -22,7 +22,7 @@ import {
   Search,
 } from "@mui/icons-material";
 import useNewsSearchAPI from "../hooks/useNewsSearchAPI";
-import { SearchBar } from "../styles/Custom.styles";
+import { NavSearchBar } from "../styles/Custom.styles";
 import Loader from "./Loader";
 import MobileMenu from "./MobileMenu";
 
@@ -103,7 +103,7 @@ const Navbar = ({
                   </IconButton>
                   {!isMobile && showSearch && (
                     <>
-                      <SearchBar
+                      <NavSearchBar
                         id="outlined-search"
                         label="Search"
                         value={searchInput}

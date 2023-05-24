@@ -1,18 +1,14 @@
 import * as React from "react";
 import { useState, useEffect } from "react";
-import { Grid, IconButton, Snackbar, Tooltip } from "@mui/material";
+import { Grid, Link, Snackbar } from "@mui/material";
 import MuiAlert from "@mui/material/Alert";
+import { OpenInNew } from "@mui/icons-material";
 import {
-  Bookmark,
-  BookmarkBorder,
-  OpenInNew,
-  Share,
-} from "@mui/icons-material";
-import {
-  Image,
-  Title,
   Description,
+  Image,
+  PublishedAt,
   ReadMoreButton,
+  Title,
 } from "../styles/Custom.styles";
 import ActionButtons from "./ActionButtons.js";
 
@@ -21,7 +17,7 @@ const Alert = React.forwardRef(function Alert(props, ref) {
 });
 
 const ArticleCard = ({
-  article: { url, urlToImage, title, description } = {},
+  article: { url, urlToImage, title, description, publishedAt } = {},
   darkMode,
   showDescription,
   showMedia,
@@ -43,7 +39,7 @@ const ArticleCard = ({
       unsaveArticle(url);
       setSnackbarMessage("Article removed from favorites!");
     } else {
-      saveArticle({ url, urlToImage, title, description });
+      saveArticle({ url, urlToImage, title, description, publishedAt });
       setSnackbarMessage("Article saved to favorites!");
     }
     setIsSaved(!isSaved);
@@ -84,6 +80,13 @@ const ArticleCard = ({
     setSnackbarOpen(false);
   };
 
+  const date = new Date(publishedAt);
+  const formattedDate = date.toLocaleDateString("en-US", {
+    year: "numeric",
+    month: "long",
+    day: "numeric",
+  });
+
   return (
     <Grid
       container
@@ -113,14 +116,17 @@ const ArticleCard = ({
           />
         </Grid>
         <Grid item>
-          <Title
+          <Link
+            href={url}
+            target="_blank"
+            rel="noreferrer"
             sx={{
-              color: darkMode ? "#ffffff" : "#000000",
+              textDecoration: "none",
+              "&:hover": { color: darkMode ? "#87E52A" : "#882AE5" },
             }}
-            variant="h6"
           >
-            {title}
-          </Title>
+            <Title variant="h6">{title}</Title>
+          </Link>
           {showDescription && (
             <Description
               variant="body2"
@@ -132,6 +138,17 @@ const ArticleCard = ({
                 ? description.substring(0, 180) + "..."
                 : description}
             </Description>
+          )}
+          {!isNaN(date.getTime()) && (
+            <PublishedAt
+              sx={{
+                color: darkMode ? "#f5f5f5" : "textSecondary",
+              }}
+              variant="caption"
+              color="textSecondary"
+            >
+              Published on: {formattedDate}
+            </PublishedAt>
           )}
         </Grid>
         <Grid item container justifyContent="flex-end">

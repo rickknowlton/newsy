@@ -5,7 +5,7 @@ import { Box, Button, Grid, Snackbar, useMediaQuery } from "@mui/material";
 import MuiAlert from "@mui/material/Alert";
 import StoryCard from "./StoryCard";
 
-const MoreHeadlines = ({
+const MoreTopStories = ({
   articles,
   darkMode,
   saveArticle,
@@ -100,4 +100,4 @@ const MoreHeadlines = ({
   );
 };
 
-export default MoreHeadlines;
+export default MoreTopStories;

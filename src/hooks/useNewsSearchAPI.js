@@ -3,6 +3,7 @@ import { useState, useEffect } from "react";
 const useNewsSearchAPI = (initialQuery = "") => {
   const [articles, setArticles] = useState([]);
   const [searchQuery, setSearchQuery] = useState(initialQuery);
+  const [sortBy, setSortBy] = useState("relevancy");
   const [page, setPage] = useState(1);
   const [hasMore, setHasMore] = useState(true);
   const [isLoading, setIsLoading] = useState(true);
@@ -11,7 +12,7 @@ const useNewsSearchAPI = (initialQuery = "") => {
   useEffect(() => {
     setArticles([]);
     setPage(1);
-  }, [searchQuery]);
+  }, [searchQuery, sortBy]);
 
   useEffect(() => {
     const fetchNews = async () => {
@@ -20,7 +21,7 @@ const useNewsSearchAPI = (initialQuery = "") => {
         const response = await fetch(
           `/api/news-search?query=${encodeURIComponent(
             searchQuery
-          )}&page=${page}`
+          )}&sortBy=${sortBy}&page=${page}`
         );
 
         if (!response.ok) {
@@ -43,12 +44,14 @@ const useNewsSearchAPI = (initialQuery = "") => {
     if (searchQuery && searchQuery !== "") {
       fetchNews();
     }
-  }, [searchQuery, page]);
+  }, [searchQuery, sortBy, page]);
 
   return {
     articles,
     searchQuery,
     setSearchQuery,
+    sortBy,
+    setSortBy,
     hasMore,
     isLoading,
     error,
