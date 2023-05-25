@@ -9,6 +9,7 @@ import {
   CardHeader,
   CardMedia,
   Link,
+  Skeleton,
   Snackbar,
   Typography,
 } from "@mui/material";
@@ -94,104 +95,119 @@ const StoryCard = ({
       }}
     >
       <Box position="relative">
-        <CardHeader
-          sx={{
-            backgroundColor: darkMode ? "#212121" : "#ffffff",
-            height: "40px",
-            "& .MuiCardHeader-action": {
-              alignSelf: "auto",
-              display: "flex",
-              justifyContent: "flex-end",
-              alignItems: "center",
-            },
-          }}
-          action={
-            <ActionButtons
-              isSaved={isSaved}
-              handleSaveArticle={handleSaveArticle}
-              handleCopyLink={handleCopyLink}
-              handleFacebookShare={handleFacebookShare}
-              handleTwitterShare={handleTwitterShare}
-              darkMode={darkMode}
-            />
-          }
-        />
-
-        <CardActionArea href={url} target="_blank">
-          <CardMedia
-            component="img"
-            height={mediaHeight}
-            image={urlToImage || "/images/newsy-sq.webp"}
-            alt={title}
-          />
-        </CardActionArea>
-
-        <CardContent
-          sx={{
-            height: cardContentHeight,
-            color: darkMode ? "#ffffff" : "#000000",
-            backgroundColor: darkMode ? "#212121" : "#ffffff",
-          }}
-        >
-          <Link
-            href={url}
-            target="_blank"
-            rel="noreferrer"
-            sx={{
-              textDecoration: "none",
-              "&:hover": { color: darkMode ? "#87E52A" : "#882AE5" },
-            }}
-          >
-            <Typography gutterBottom variant="h6" component="h2">
-              {title}
-            </Typography>
-          </Link>
-          {showDescription && (
-            <Typography
-              variant="body2"
+        {url ? (
+          <>
+            <CardHeader
               sx={{
-                color: darkMode ? "#f5f5f5" : "#000000",
-              }}
-              component="p"
-            >
-              {description && description.length > 180
-                ? description.substring(0, 180) + "..."
-                : description}
-            </Typography>
-          )}
-        </CardContent>
-        <CardActions sx={{ backgroundColor: darkMode ? "#191919" : "#ffffff" }}>
-          <Box
-            sx={{
-              display: "flex",
-              justifyContent: "flex-end",
-              width: "100%",
-            }}
-          >
-            <Link
-              sx={{
-                color: darkMode ? "#f5f5f5" : "#000000",
-                textDecoration: "none",
-                display: "flex",
-                alignItems: "center",
-                "&:hover": {
-                  color: darkMode ? "lightgrey" : "grey",
+                backgroundColor: darkMode ? "#212121" : "#ffffff",
+                height: "40px",
+                "& .MuiCardHeader-action": {
+                  alignSelf: "auto",
+                  display: "flex",
+                  justifyContent: "flex-end",
+                  alignItems: "center",
                 },
               }}
-              href={url}
-              target="_blank"
-              rel="noreferrer"
+              action={
+                <ActionButtons
+                  isSaved={isSaved}
+                  handleSaveArticle={handleSaveArticle}
+                  handleCopyLink={handleCopyLink}
+                  handleFacebookShare={handleFacebookShare}
+                  handleTwitterShare={handleTwitterShare}
+                  darkMode={darkMode}
+                />
+              }
+            />
+            <CardActionArea href={url} target="_blank">
+              <CardMedia
+                component="img"
+                height={mediaHeight}
+                image={urlToImage || "/images/newsy-sq.webp"}
+                alt={title}
+              />
+            </CardActionArea>
+            <CardContent
+              sx={{
+                height: cardContentHeight,
+                color: darkMode ? "#ffffff" : "#000000",
+                backgroundColor: darkMode ? "#212121" : "#ffffff",
+              }}
             >
-              <Typography
-                variant="subtitle1"
-                sx={{ textAlign: "right", marginRight: "5px" }}
+              <Link
+                href={url}
+                target="_blank"
+                rel="noreferrer"
+                sx={{
+                  textDecoration: "none",
+                  "&:hover": { color: darkMode ? "#87E52A" : "#882AE5" },
+                }}
               >
-                Read More
-              </Typography>
-              <OpenInNew />
-            </Link>
-          </Box>
-        </CardActions>
+                <Typography gutterBottom variant="h6" component="h2">
+                  {title}
+                </Typography>
+              </Link>
+              {showDescription && (
+                <Typography
+                  variant="body2"
+                  sx={{
+                    color: darkMode ? "#f5f5f5" : "#000000",
+                  }}
+                  component="p"
+                >
+                  {description && description.length > 180
+                    ? description.substring(0, 180) + "..."
+                    : description}
+                </Typography>
+              )}
+            </CardContent>
+            <CardActions
+              sx={{ backgroundColor: darkMode ? "#191919" : "#ffffff" }}
+            >
+              <Box
+                sx={{
+                  display: "flex",
+                  justifyContent: "flex-end",
+                  width: "100%",
+                }}
+              >
+                <Link
+                  sx={{
+                    color: darkMode ? "#f5f5f5" : "#000000",
+                    textDecoration: "none",
+                    display: "flex",
+                    alignItems: "center",
+                    "&:hover": {
+                      color: darkMode ? "lightgrey" : "grey",
+                    },
+                  }}
+                  href={url}
+                  target="_blank"
+                  rel="noreferrer"
+                >
+                  <Typography
+                    variant="subtitle1"
+                    sx={{ textAlign: "right", marginRight: "5px" }}
+                  >
+                    Read More
+                  </Typography>
+                  <OpenInNew />
+                </Link>
+              </Box>
+            </CardActions>
+          </>
+        ) : (
+          <>
+            <Skeleton variant="rectangular" height={40} />
+            <Skeleton
+              variant="rectangular"
+              animation="wave"
+              height={mediaHeight}
+            />
+            <Skeleton variant="rectangular" height={cardContentHeight} />
+            <Skeleton variant="rectangular" height={40} />
+          </>
+        )}
       </Box>
       <Snackbar
         open={snackbarOpen}

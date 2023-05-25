@@ -1,6 +1,6 @@
 import * as React from "react";
 import { useState, useEffect } from "react";
-import { Grid, Link, Snackbar } from "@mui/material";
+import { Grid, Link, Skeleton, Snackbar } from "@mui/material";
 import MuiAlert from "@mui/material/Alert";
 import { OpenInNew } from "@mui/icons-material";
 import {
@@ -99,71 +99,116 @@ const ArticleCard = ({
         whiteSpace: "normal",
       }}
     >
-      {showMedia && (
-        <Grid item xs={2}>
-          <Image src={urlToImage || "/images/newsy-sq.webp"} alt={title} />
-        </Grid>
+      {url ? (
+        <>
+          {showMedia && (
+            <Grid item xs={2}>
+              <Image src={urlToImage || "/images/newsy-sq.webp"} alt={title} />
+            </Grid>
+          )}
+          <Grid item xs={showMedia ? 10 : 12} container direction="column">
+            <Grid item container justifyContent="flex-end">
+              <ActionButtons
+                isSaved={isSaved}
+                handleSaveArticle={handleSaveArticle}
+                handleCopyLink={handleCopyLink}
+                handleFacebookShare={handleFacebookShare}
+                handleTwitterShare={handleTwitterShare}
+                darkMode={darkMode}
+              />
+            </Grid>
+            <Grid item>
+              <Link
+                href={url}
+                target="_blank"
+                rel="noreferrer"
+                sx={{
+                  textDecoration: "none",
+                  "&:hover": { color: darkMode ? "#87E52A" : "#882AE5" },
+                }}
+              >
+                <Title variant="h6">{title}</Title>
+              </Link>
+              {showDescription && (
+                <Description
+                  variant="body2"
+                  sx={{
+                    color: darkMode ? "#f5f5f5" : "#000000",
+                  }}
+                >
+                  {description && description.length > 180
+                    ? description.substring(0, 180) + "..."
+                    : description}
+                </Description>
+              )}
+              {!isNaN(date.getTime()) && (
+                <PublishedAt
+                  sx={{
+                    color: darkMode ? "#f5f5f5" : "textSecondary",
+                  }}
+                  variant="caption"
+                  color="textSecondary"
+                >
+                  Published on: {formattedDate}
+                </PublishedAt>
+              )}
+            </Grid>
+            <Grid item container justifyContent="flex-end">
+              <ReadMoreButton
+                variant="outlined"
+                color="primary"
+                startIcon={<OpenInNew />}
+                href={url}
+                target="_blank"
+                rel="noreferrer"
+              >
+                Read More
+              </ReadMoreButton>
+            </Grid>
+          </Grid>
+        </>
+      ) : (
+        <>
+          {showMedia && (
+            <Grid item xs={2}>
+              <Skeleton
+                animation={"wave"}
+                variant="rectangular"
+                sx={{
+                  borderRadius: "20px 0 0 20px",
+                  width: "100%",
+                  height: 100,
+                  backgroundColor: darkMode ? "grey.900" : "grey.400",
+                  overflow: "hidden",
+                }}
+              />
+            </Grid>
+          )}
+          <Grid
+            item
+            sx={{ padding: "10px", overflow: "hidden" }}
+            xs={showMedia ? 10 : 12}
+          >
+            <Skeleton
+              animation={"wave"}
+              sx={{
+                height: "50%",
+                backgroundColor: darkMode ? "grey.900" : "grey.400",
+              }}
+              variant="text"
+            />
+
+            <Skeleton
+              animation={"wave"}
+              sx={{
+                height: "50%",
+                backgroundColor: darkMode ? "grey.900" : "grey.400",
+              }}
+              variant="text"
+            />
+          </Grid>
+        </>
       )}
-      <Grid item xs={showMedia ? 10 : 12} container direction="column">
-        <Grid item container justifyContent="flex-end">
-          <ActionButtons
-            isSaved={isSaved}
-            handleSaveArticle={handleSaveArticle}
-            handleCopyLink={handleCopyLink}
-            handleFacebookShare={handleFacebookShare}
-            handleTwitterShare={handleTwitterShare}
-            darkMode={darkMode}
-          />
-        </Grid>
-        <Grid item>
-          <Link
-            href={url}
-            target="_blank"
-            rel="noreferrer"
-            sx={{
-              textDecoration: "none",
-              "&:hover": { color: darkMode ? "#87E52A" : "#882AE5" },
-            }}
-          >
-            <Title variant="h6">{title}</Title>
-          </Link>
-          {showDescription && (
-            <Description
-              variant="body2"
-              sx={{
-                color: darkMode ? "#f5f5f5" : "#000000",
-              }}
-            >
-              {description && description.length > 180
-                ? description.substring(0, 180) + "..."
-                : description}
-            </Description>
-          )}
-          {!isNaN(date.getTime()) && (
-            <PublishedAt
-              sx={{
-                color: darkMode ? "#f5f5f5" : "textSecondary",
-              }}
-              variant="caption"
-              color="textSecondary"
-            >
-              Published on: {formattedDate}
-            </PublishedAt>
-          )}
-        </Grid>
-        <Grid item container justifyContent="flex-end">
-          <ReadMoreButton
-            variant="outlined"
-            color="primary"
-            startIcon={<OpenInNew />}
-            href={url}
-            target="_blank"
-            rel="noreferrer"
-          >
-            Read More
-          </ReadMoreButton>
-        </Grid>
-      </Grid>
       <Snackbar
         open={snackbarOpen}
         autoHideDuration={3000}

@@ -1,6 +1,12 @@
 import * as React from "react";
 import { useEffect, useRef } from "react";
-import { Box, List, ListItemButton, ListItemText } from "@mui/material";
+import {
+  Box,
+  List,
+  ListItemButton,
+  ListItemText,
+  Skeleton,
+} from "@mui/material";
 
 const Sidebar = ({
   articles,
@@ -40,43 +46,65 @@ const Sidebar = ({
       }}
     >
       <List component="nav">
-        {articles.map((article, index) => (
-          <ListItemButton
-            selected={index === currentArticleIndex}
-            onClick={() => setCurrentArticleIndex(index)}
-            key={index}
-            ref={index === currentArticleIndex ? activeItemRef : null}
-            sx={{
-              backgroundColor: darkMode ? "#212121" : "#ffffff",
-              transition: "background-color 0.5s",
-            }}
-          >
-            <ListItemText
-              primary={article.title}
-              secondary={
-                article.description && article.description.length > 180
-                  ? article.description.substring(0, 180) + "..."
-                  : article.description
-              }
-              primaryTypographyProps={{
-                sx: {
-                  fontWeight: "bold",
-                  fontSize: "1em",
-                  fontFamily: '"BioRhyme", Arial, serif',
-                  color: darkMode ? "#f5f5f5" : "#000000",
-                },
-              }}
-              secondaryTypographyProps={{
-                sx: {
-                  fontSize: "1em",
-                  fontWeight: "500",
-                  fontFamily: '"Wix Madefor Display", Arial, sans-serif',
-                  color: darkMode ? "#bdbdbd" : "inherit",
-                },
-              }}
-            />
-          </ListItemButton>
-        ))}
+        {articles.length
+          ? articles.map((article, index) => (
+              <ListItemButton
+                selected={index === currentArticleIndex}
+                onClick={() => setCurrentArticleIndex(index)}
+                key={index}
+                ref={index === currentArticleIndex ? activeItemRef : null}
+                sx={{
+                  backgroundColor: darkMode ? "#212121" : "#ffffff",
+                  transition: "background-color 0.5s",
+                }}
+              >
+                <ListItemText
+                  primary={article.title}
+                  secondary={
+                    article.description && article.description.length > 180
+                      ? article.description.substring(0, 180) + "..."
+                      : article.description
+                  }
+                  primaryTypographyProps={{
+                    sx: {
+                      fontWeight: "bold",
+                      fontSize: "1em",
+                      fontFamily: '"BioRhyme", Arial, serif',
+                      color: darkMode ? "#f5f5f5" : "#000000",
+                    },
+                  }}
+                  secondaryTypographyProps={{
+                    sx: {
+                      fontSize: "1em",
+                      fontWeight: "500",
+                      fontFamily: '"Wix Madefor Display", Arial, sans-serif',
+                      color: darkMode ? "#bdbdbd" : "inherit",
+                    },
+                  }}
+                />
+              </ListItemButton>
+            ))
+          : Array(5)
+              .fill()
+              .map((_, i) => (
+                <>
+                  <Skeleton
+                    key={i}
+                    height={"150px"}
+                    animation="wave"
+                    variant="rectangle"
+                  />
+                  <Skeleton
+                    key={i}
+                    height={"150px"}
+                    animation="wave"
+                    variant="rectangle"
+                    sx={{
+                      backgroundColor: "grey.800",
+                    }}
+                  />
+                </>
+              ))}
       </List>
     </Box>
   );
