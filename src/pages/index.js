@@ -140,7 +140,7 @@ const IndexPage = () => {
             <Typography variant="h3" component="h1" gutterBottom>
               Top Stories
             </Typography>
-            {/* {searchQuery && searchQuery !== "" && isLoading && (
+            {searchQuery && searchQuery !== "" && isLoading && (
               <Box
                 display="flex"
                 justifyContent="center"
@@ -150,7 +150,7 @@ const IndexPage = () => {
                 <CircularProgress />
                 <Typography>Loading...</Typography>
               </Box>
-            )} */}
+            )}
             <Grid container spacing={2}>
               <Grid item xs={12} md={8}>
                 <TopStories
